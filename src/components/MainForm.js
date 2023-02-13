@@ -174,7 +174,7 @@ const MainForm = ({
                 onChange={handleChange}
               >
                 <option value={""}>seleccione un estado</option>
-                {mp.map((el) => (
+                {mp.sort().map((el) => (
                   <option value={el} key={el}>
                     {el}
                   </option>
