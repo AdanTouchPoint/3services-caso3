@@ -28,7 +28,15 @@ const MainForm = ({
   const [error, setError] = useState(false);
   const [showThankYou, setShowThankYou] = useState(true);
   const [mainData, setMainData] = useState({});
-
+  const [tac, setTac] = useState(false)
+  
+  const handleTerms = (e) => {
+    if (e.target.checked === true) {
+      setTac(true)
+  } else {
+    setTac(false)
+  }
+  }
   const handleChange = (e) => {
     e.preventDefault();
     setDataUser({
@@ -42,8 +50,7 @@ const MainForm = ({
 
   const click = async (e) => {
     e.preventDefault();
-    // load spin
-    setShowLoadSpin(true);
+   
     //validation form -->
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -53,13 +60,15 @@ const MainForm = ({
     setValidated(true);
     if (
       //firstName.trim() === '' || lastName.trim() === '' || //
+      tac  === false ||
       state.trim() === "" ||
       emailUser.trim() === ""
     ) {
       setError(true);
       return;
     }
-
+ // load spin
+    setShowLoadSpin(true);
     setError(false);
     //---> ends validation form
 
@@ -181,6 +190,18 @@ const MainForm = ({
                 ))}
               </Form.Select>
             </Form.Group>
+            <Form.Group style={{textAlign: "justify"}} controlId="conditions">
+                <Form.Check
+                  name="conditions"
+                  onClick={handleTerms}
+                  required
+                  label={
+                    <a target={"_blank"} rel={"noreferrer"} href={mainData.data?.docs[0]
+                      ? mainData.data?.docs[0].terms
+                      : "Please enter a url on your dashboard"}> Accepto los terminoss y condiciones</a>
+                  }
+                />
+              </Form.Group>
             <Form.Group>
               <Button
                 type={"submit"}
